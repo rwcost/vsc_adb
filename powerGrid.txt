@@ -1,0 +1,25 @@
+    PowerGrid
+        CoalPlant id=10 Name="Old Smokey"
+        NukePlant id=20 Name="Nukie"
+        NukePlant Name="3.5 Mile Island" id=1
+        NGPlant Name="Fracker" id=3
+        WindFarm id=5 Name="Breezy"
+        SolarFarm id=4 Name="Sunny"
+        CoalPlant id=2 Name="New Coal"
+
+        Generators
+            Reactor plantId=20 id=1 Status="Melted" Temp=1000
+            Reactor plantId=20 id=2 Status="Ok-ish" Temp=190
+            Reactor plantId=20 id=3 Status="Working" Temp=100
+            Reactor plantId=1 id=4 Status="Brand New" Temp=100
+            Reactor plantId=1 id=5 Status="Damaged"
+            Reactor plantId=1 id=6 Status="Glowing" Temp=2000
+            Turbine plantId=5 id=7 Status="Spinning" Rpm=60
+            Turbine plantId=5 id=8 Status="Broke"
+            Turbine Status="Missing Blade" plantId=5 id=9 Rpm=70
+            
+        Thresholds
+            Reactor
+                Temp hi=200 lo=50
+            Turbine
+                Rpm slow=30 fast=120 
