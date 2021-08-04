@@ -1,11 +1,26 @@
-/* put header information here */
+/* The objective of this code is to build a simple console application, demo it, 
+and discuss it with team at interview. NOTE: While the problem is simple 
+and can be solved in many ways, implementors should make an effort to 
+demonstrate their knowledge of object oriented programming.
+
+# Description
+Given the file below, write a console app that reads the file in 
+and prints information to standard output.  It should support 
+the -d and -c options, as described below.
+
+The file represents the data for a power grid.  Each power source can 
+have 0 – N generators. Those generators can have additional information 
+such as Temp and RPM. There are a set of thresholds which apply to the 
+generator’s information.  Those determine if the generator is OK or BAD. 
+
+ */
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
 
 using namespace std;
-
+/* this is the base class for the turbine and reactor class */
 class Generator
 {
 private:
@@ -19,15 +34,17 @@ public:
     ~Generator();
 };
 
+/* this is the base class constructor */
 Generator::Generator()
 {
 
 }
-
+/* this is the base class destructor */
 Generator::~Generator()
 {
 }
 
+/* this is the derived class reactor class */
 class Reactor : Generator
 {
 private:
@@ -50,6 +67,7 @@ Reactor::~Reactor()
 {
 }
 
+/* this is the derived class generator class */
 class Turbine : Generator
 {
 private:
@@ -65,7 +83,7 @@ Turbine::Turbine(int rpmIn, int plantIdIn, int idIn, string statusIn)
 {
     this->rpm = rpmIn;
 }
-
+/* this is the class destructor */
 Turbine::~Turbine()
 {
 }
@@ -98,15 +116,13 @@ Plant::Plant(int idIn, string nameIn)
     this->name = nameIn;
 }
 
-
-//Plant::Plant()
-//{
-//}
-
+/* this is the class destructor */
 Plant::~Plant()
 {
 }
 
+/* this is a class used for string operation that most other languages have,
+but not implemented in C++*/
 class Utils
 {
 public:
@@ -118,8 +134,9 @@ public:
     void sort(vector<Plant>* plantList);
 
 };
+/* read a file and put the contents into a string vector */
 void Utils::readFile(string filename, vector<string>& fileToMem)
-{  // Method/function defined inside the class
+{
     // open a file in read mode.
     ifstream infile(filename);
     if (infile.is_open())
@@ -134,7 +151,7 @@ void Utils::readFile(string filename, vector<string>& fileToMem)
     }
 }
 
-// getinteger
+/* convert the integer that is referenced by the search string  */
 int Utils::getInteger(string& temp, string searchString, int pos, int length)
 {
     if (temp.find(searchString) != -1)
@@ -147,7 +164,7 @@ int Utils::getInteger(string& temp, string searchString, int pos, int length)
     }
 }
 
-// getString
+/* convert the referenceds item is a temp string to a string */
    string Utils::getString(string temp)
 {
     int tempIdxStart = temp.find("\"");
@@ -156,7 +173,7 @@ int Utils::getInteger(string& temp, string searchString, int pos, int length)
 }
   
 
-// sort
+/* recursively sort the vector objects */
    void Utils::sort(vector<Plant>* plantList)
    {
        for (vector<Plant>::iterator itSort = plantList->begin(); itSort < plantList->end()-1; itSort++)
@@ -254,7 +271,7 @@ int Utils::getInteger(string& temp, string searchString, int pos, int length)
           generatorList.erase(generatorList.begin());
           thresholdsList.erase(thresholdsList.begin());
 
-          // display the array of vector strings 
+          // build plant the array of vector plant objects 
           for (it = plantStringList.begin(); it < plantStringList.end(); it++)
           {
               temp = *it;
@@ -267,7 +284,7 @@ int Utils::getInteger(string& temp, string searchString, int pos, int length)
               }
           }//end for
 
-           // display the array of vector strings 
+           /* add generator types to the plant objects in vector arrays*/ 
           for (it_plant = plantList->begin(); it_plant < plantList->end(); it_plant++)
           {
               // search, create, destroy reactors in array
@@ -280,7 +297,6 @@ int Utils::getInteger(string& temp, string searchString, int pos, int length)
                       if (tempPlantId == it_plant->id)
                       {
                           // get reactor parameters from line
-
                           int rt = myUtil.getInteger(temp, "Temp=", 5, 2);
                           int rpi = myUtil.getInteger(temp, "plantId=", 8, 2);
                           int ri = myUtil.getInteger(temp, "id=", 3, 2);
@@ -305,18 +321,17 @@ int Utils::getInteger(string& temp, string searchString, int pos, int length)
               }
 
           }
-
+          /* sort the plant objects by id */
           for (it_plant = plantList->begin(); it_plant < plantList->end(); it_plant++)
           {
               myUtil.sort(plantList);
           }
 
-          
+          /* this displays the plant information*/
           for (it_plant = plantList->begin(); it_plant < plantList->end(); it_plant++)
           {
             int tempPlantId = it_plant->id;
             string tempName = it_plant->name;
-
             cout << tempName << " " << tempPlantId << endl;
           }
 
