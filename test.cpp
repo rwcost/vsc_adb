@@ -311,9 +311,13 @@ int Utils::getInteger(string& temp, string searchString, int pos, int length)
               myUtil.sort(plantList);
           }
 
-        
+          
+          for (it_plant = plantList->begin(); it_plant < plantList->end(); it_plant++)
+          {
+            int tempPlantId = it_plant->id;
+            string tempName = it_plant->name;
 
-
-          cout << plantList << endl;
+            cout << tempName << " " << tempPlantId << endl;
+          }
 
       }
