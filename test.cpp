@@ -334,5 +334,6 @@ int Utils::getInteger(string& temp, string searchString, int pos, int length)
             string tempName = it_plant->name;
             cout << tempName << " " << tempPlantId << endl;
           }
-
+          //release memory
+            plantList->clear();
       }
